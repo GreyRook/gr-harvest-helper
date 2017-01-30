@@ -1,0 +1,15 @@
+{
+	"name": "jira-harvest",
+	"version": "1.20",
+	"description": "Adds a Harvest Button to JIRA Cloud",
+	"content_scripts": [
+		{
+			"matches": ["https://*/projects/*/issues/*",
+                  "https://*/browse/*"],
+			"js": ["jquery-2.1.4.min.js","jiraharvest.js"]
+		}
+	],
+  "manifest_version" : 2,
+  "web_accessible_resources": ["images/timer-icon.png"]
+
+}
