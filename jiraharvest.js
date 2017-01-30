@@ -67,6 +67,17 @@ $(document).on('ready', function(){
 
   var $opsCont = $('.command-bar .ops-cont .toolbar-split-left');
 
+  // in case the container already exists from the beginning
+  if($opsCont.length > 0) {
+    var $btn = $('#harvest-timer');
+    if($btn.length == 0) {
+      $btn = createButton();
+      $opsCont.append($btn);
+
+      location.href="javascript:window.trigger(); void 0";
+    }
+  }
+
   // JIRA needs some time to load an issue most of the time so we have to wait for the issue to be loaded
   var observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
