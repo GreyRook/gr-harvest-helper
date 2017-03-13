@@ -39,6 +39,13 @@ function createButton(container) {
 }
 
 $(document).on('ready', function(){
+
+  // pattern matching is quite broad so check if this is actually JIRA
+  var appName = document.head.querySelector("[name=application-name]");
+  if(!appName || (appName && appName.content != "JIRA")) {
+    return;
+  }
+
   /*
   * chrome extensions can't access the original sites window var directly
   */
