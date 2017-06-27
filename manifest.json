@@ -5,7 +5,9 @@
   "content_scripts": [
     {
       "matches": ["*://*/*projects*/issues/*",
-                  "*://*/*browse/*"],
+                  "*://*/*browse/*",
+                  "*://*/*secure/*projectKey=*"
+                 ],
       "js": ["jquery-2.1.4.min.js","jiraharvest.js"]
     }
   ],
