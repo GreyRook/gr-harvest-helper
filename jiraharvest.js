@@ -1,12 +1,23 @@
 
 function createButton() {
-  var $project = $('#project-name-val')
-  var projHref = $project.get(0).href.split('/')
-  var projectKey = projHref[projHref.length - 1]
-  var projectName = $project.text()
-
   var issueKey = $('#key-val').text() //JIRA.Issue.getIssueKey(); global vars sadly not accessible
   var issueTitle = $('#summary-val').text()
+
+  var $project = $('#project-name-val')
+  var projHref = null
+  var projectKey = null
+  var projectName = null
+  // old jira vs new jira (a version check would probably be better huh)
+  if ($project.length != 0) {
+    projHref = $project.get(0).href.split('/')
+    projectKey = projHref[projHref.length - 1]
+    projectName = $project.text()
+  } else {
+    var splitIssueKey = issueKey.split('-')
+    splitIssueKey.splice(splitIssueKey.length - 1)
+    projectKey = splitIssueKey.join('-')
+    projectName = $('.geqndN').get(0).innerText
+  }
 
   var $group = $('<ul id=\'opsbar-opsbar-harvest\' class=\'toolbar-harvestbutton toolbar-group pluggable-ops\'></ul>')
   var $list = $('<li class=\'toolbar-item\'></li>')
@@ -37,14 +48,43 @@ function createButton() {
 }
 
 function createListItem() {
+  // old jira vs new jira (a version check would probably be better huh)
   var issueKey = $('#issuekey-val a').text()
-  var issueTitle = $('#summary-val').text()
+  var issueTitle = null
+  var projectName = null
+  var $list = null
+  var $listItem = null
+  if (issueKey != '') {
+    issueTitle = $('#summary-val').text()
+    projectName = $('#ghx-project').text()
 
-  var projectKey = issueKey.split('-')[0]
-  var projectName = $('#ghx-project').text()
+    $list = $('<li id=\'TRELLO-nav\' class=\'ghx-detail-nav-item\'></li>')
+    $listItem = $list
+  } else {
+    $listItem = $('<div></div>')
+    var $span = $('<span class="sc-czyBUM gKQHuw"></span>')
+    $listItem.append($span)
 
-  var $list = $('<li id=\'TRELLO-nav\' class=\'ghx-detail-nav-item\'></li>')
-  var $button = $('<a id=\'harvest-timer\' title=\'Harvest timer\' href=\'#\'></a>')
+    $list = $('<button class="sc-hMqMXs cdkVsS" spacing="none" type="button"></button>')
+    $list.css({
+      'width': '32px',
+      'height': '32px',
+      'display': 'inline-flex',
+      'justify-content': 'center'
+    })
+    $span.append($list)
+
+    projectName = $('.issZJq').text()
+
+    issueTitle = $('.iGOJgA').text()
+    issueKey = $('#ghx-detail-view .sc-dEoRIm.kHqMiE.sc-iqzUVk.NYYBu').text()
+  }
+
+  var splitIssueKey = issueKey.split('-')
+  splitIssueKey.splice(splitIssueKey.length - 1)
+  var projectKey = splitIssueKey.join('-')
+
+  var $button = $('<a id=\'harvest-timer\' class=\'harvest-timer toolbar-trigger\' href=\'#\'></a>')
 
   dataGroup = {
     'id': projectKey,
@@ -64,9 +104,10 @@ function createListItem() {
   $icon.css('height', 18)
   $icon.css('width', 12)
 
-  $list.append($button.append($icon))
+  $button.append($icon)
+  $list.append($button)
 
-  return $list
+  return $listItem
 }
 
 $(document).on('ready', function(){
@@ -111,7 +152,7 @@ $(document).on('ready', function(){
       'func': createButton
     }, {
       'elem': function() {
-        return $('.ghx-detail-nav-menu ul')
+        return $('.ghx-detail-nav-menu ul, .kwlpBk')
       },
       'func': createListItem
     }
@@ -146,7 +187,6 @@ $(document).on('ready', function(){
         for(var j in additions) {
           var addition = additions[j]
           var $elem = addition.elem()
-
           if($btn.length == 0 && $elem && $elem.length > 0) {
             $btn = addition.func.call()
             $elem.append($btn)
