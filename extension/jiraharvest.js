@@ -56,7 +56,7 @@ function init(){
 
           const harvestItem = {
             'id': issueId,
-            'name': issueTitle,
+            'name': `[${issueId}] ${issueTitle}`,
           };
 
           harvestTimer.dataset.item = JSON.stringify(harvestItem);
