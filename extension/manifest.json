@@ -1,6 +1,6 @@
 {
   "name": "Jira Harvest Time Tracking",
-  "version": "2.1",
+  "version": "2.2",
   "description": "Adds a Harvest Button to JIRA",
   "content_scripts": [
     {
@@ -8,7 +8,7 @@
                   "*://*/*browse/*",
                   "*://*/*secure/*projectKey=*"
                  ],
-      "js": ["jquery-2.1.4.min.js","jiraharvest.js"]
+      "js": ["jiraharvest.js"]
     }
   ],
   "icons": { "128": "harvest-jira-icon.png" },
