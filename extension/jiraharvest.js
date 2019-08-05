@@ -1,4 +1,4 @@
-window.addEventListener( "load", init );
+document.onload = init()
 
 function init(){
   // pattern matching is quite broad so check if this is actually JIRA
