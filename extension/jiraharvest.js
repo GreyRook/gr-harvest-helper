@@ -102,7 +102,11 @@ function init(){
       }
 
       // The css classes are generated and may change. To find a sidebar item we are searching for the unique path of its svg icon.
-      const uniqueSidebarItemIdentifier = document.querySelector('path[d=\'M5 15h12v-2H5v2zm-2-4h16v6H3v-6z\']');
+      let uniqueSidebarItemIdentifier = document.querySelector('path[d=\'M5 15h12v-2H5v2zm-2-4h16v6H3v-6z\']');
+
+      if (!uniqueSidebarItemIdentifier) {
+        uniqueSidebarItemIdentifier = document.querySelector('path[d=\'M3.507 15H16.5c-.007 0-.007-10-.007-10H3.5c.007 0 .007 10 .007 10zM1.5 4.994C1.5 3.893 2.263 3 3.192 3h13.616c.934 0 1.692.895 1.692 1.994v10.012c0 1.101-.763 1.994-1.692 1.994H3.192c-.934 0-1.692-.895-1.692-1.994V4.994zM6.5 5v10h2V5h-2zm5 0v10h2V5h-2z\']');
+      }
 
       // Finds the sidebar item root element
       const sidebarItemRoot = uniqueSidebarItemIdentifier.closest('[role=presentation]:not(svg)');
