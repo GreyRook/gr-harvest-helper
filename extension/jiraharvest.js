@@ -105,7 +105,7 @@ function init(){
       let uniqueSidebarItemIdentifier = document.querySelector('path[d=\'M5 15h12v-2H5v2zm-2-4h16v6H3v-6z\']');
 
       if (!uniqueSidebarItemIdentifier) {
-        uniqueSidebarItemIdentifier = document.querySelector('path[d=\'M4 18h16.008C20 18 20 6 20 6H3.992C4 6 4 18 4 18zM2 5.994C2 4.893 2.898 4 3.99 4h16.02C21.108 4 22 4.895 22 5.994v12.012A1.997 1.997 0 0 1 20.01 20H3.99A1.994 1.994 0 0 1 2 18.006V5.994z\']');
+        uniqueSidebarItemIdentifier = document.querySelector('path[d=\'M21 17H4.995C4.448 17 4 16.548 4 15.991V6a1 1 0 1 0-2 0v9.991A3.004 3.004 0 0 0 4.995 19H21a1 1 0 0 0 0-2zm-3-8v3a1 1 0 0 0 2 0V8a1 1 0 0 0-1-1h-4a1 1 0 0 0 0 2h3z\']');
       }
 
       // Finds the sidebar item root element
