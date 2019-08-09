@@ -1,6 +1,6 @@
 {
   "name": "Jira Harvest Time Tracking",
-  "version": "2.2",
+  "version": "2.4",
   "description": "Adds a Harvest Button to JIRA",
   "content_scripts": [
     {
