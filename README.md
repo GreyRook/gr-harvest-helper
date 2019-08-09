@@ -1,6 +1,6 @@
 # Harvest Jira Plugin
 
-Adds a Harvest time tracking button to JIRA issues.  No synchronization to jira is done, all data stays in harvest.
+Adds a Harvest time tracking button to JIRA issues (Active sprints page, issue page). No synchronization to jira is done, all data stays in harvest.
  
  * [Chrome Store](https://chrome.google.com/webstore/detail/jira-harvest-time-trackin/klgljijecjfkdfobihclllkadmoeokgg)
  * [Mozilla Addons](https://addons.mozilla.org/de/firefox/addon/jira-harvest-helper)
