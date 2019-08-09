@@ -6,7 +6,7 @@
     {
       "matches": ["*://*/*projects*/issues/*",
                   "*://*/*browse/*",
-                  "*://*/*secure/*projectKey=*"
+                  "*://*/*secure/*"
                  ],
       "js": ["jiraharvest.js"]
     }
