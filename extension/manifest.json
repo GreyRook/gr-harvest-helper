@@ -4,9 +4,8 @@
   "description": "Adds a Harvest Button to JIRA",
   "content_scripts": [
     {
-      "matches": ["*://*/*projects*/issues/*",
-                  "*://*/*browse/*",
-                  "*://*/*secure/*projectKey=*"
+      "matches": ["*://*/*browse/*",
+                  "*://*/*/RapidBoard*"
                  ],
       "js": ["jiraharvest.js"]
     }
