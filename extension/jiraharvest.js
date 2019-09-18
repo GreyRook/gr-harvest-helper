@@ -31,7 +31,7 @@ function init(){
 
     window._harvestPlatformConfig = {
       'applicationName': 'JIRA',
-      'permalink': 'https://' + window.location.host + '/projects/%GROUP_ID%/issues/%ITEM_ID%',
+      'permalink': 'https://' + window.location.host + '/browse/%ITEM_ID%',
       'skipStyling': true,
     };
 
