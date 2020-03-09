@@ -1,0 +1,21 @@
+{
+    "manifest_version": 2,
+    "name": "popup Harvest Time Tracking",
+    "version": "2.4",
+    "description": "Adds a Harvest Button to JIRA",
+    "browser_action": {
+      "default_icon": "harvest-jira-icon.png",
+      "default_popup": "popupTimer/popup.html"
+    },
+    "background": {
+      "scripts": ["popupTimer/popup.js"]
+    }, 
+    "permissions": [
+      "activeTab",
+      "<all_urls>",
+      "tabs"
+    ],
+    "content_security_policy": "script-src 'self' https://platform.harvestapp.com/assets/platform.js; object-src 'self'"
+    
+    
+  }
