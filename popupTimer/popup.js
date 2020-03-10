@@ -48,12 +48,15 @@ var detectFrame = setInterval(() => {
     var setHeight = setInterval(() => {
       if (
         document.getElementById("harvest-iframe").scrollHeight !== 300 &&
+        document.getElementById("harvest-iframe").scrollHeight !== 0 &&
         document.getElementById("harvest-iframe").scrollHeight == scrollHeight
       ) {
         document.body.style.height =
           document.getElementById("harvest-iframe").scrollHeight + "px";
+        if (document.getElementById("harvest-iframe").scrollHeight !== 267) {
+          clearInterval(setHeight);
+        }
         document.body.style.width = "500px";
-        clearInterval(setHeight);
       } else {
         scrollHeight = document.getElementById("harvest-iframe").scrollHeight;
       }
