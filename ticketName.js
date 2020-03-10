@@ -4,11 +4,14 @@ if (!GR_time_tracking_harvest_executed_once) {
 
   const GRlog = function(text) {
     console.log("[GR-Time-Tracker]: " + text);
-  }
+  };
   const detectJira = function() {
     const appName = document.head.querySelector("[name=application-name]");
-    return appName && appName.content == "JIRA" && document.getElementById("summary-val")!==null;
-    
+    return (
+      appName &&
+      appName.content == "JIRA" &&
+      document.getElementById("summary-val") !== null
+    );
   };
   const detectZammad = function() {
     try {
@@ -34,9 +37,11 @@ if (!GR_time_tracking_harvest_executed_once) {
   };
   const jiraAddTimeTracking = function() {
     return document.getElementById("summary-val").textContent;
-  };  
+  };
   const zammadAddTimeTracking = function() {
-    return document.getElementsByClassName("ticket-title-update js-objectTitle")[0].textContent;
+    return document.getElementsByClassName(
+      "ticket-title-update js-objectTitle"
+    )[0].textContent;
   };
 
   const gitlabAddTimeTracking = function() {
