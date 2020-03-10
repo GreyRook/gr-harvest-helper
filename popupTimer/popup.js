@@ -27,17 +27,23 @@ window.onload = function() {
     .getElementsByClassName("harvest-timer")[0]
     .setAttribute("top", "10px");
 };
+
 var frameDetected = false;
+
 var detectFrame = setInterval(() => {
   if (document.getElementById("harvest-iframe") && !frameDetected) {
     frameDetected = true;
+
     document.getElementById("harvest-iframe").style.top = "10px";
     document.body.clientHeight = "150";
+
     this.document.getElementsByClassName(
       "harvest-overlay"
     )[0].style.background = "white";
+
     this.document.getElementsByClassName("harvest-overlay")[0].style.overflow =
       "hidden";
+
     var scrollHeight = 300;
     var setHeight = setInterval(() => {
       if (
@@ -53,6 +59,7 @@ var detectFrame = setInterval(() => {
       }
     }, 100);
   }
+
   if (document.getElementById("harvest-iframe") == null && frameDetected) {
     window.close();
     clearInterval(detectFrame);
