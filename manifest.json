@@ -1,11 +1,16 @@
 {
   "manifest_version": 2,
-  "name": "popup Harvest Time Tracking",
+  "name": "Grey Rook Harvest Time Tracking Helper",
   "version": "2.4",
-  "description": "Adds a Harvest Button to JIRA",
+  "description": "Helps you to link your tracked Time to issues and stories. Supported is Gitlab, Jira and Zammad",
   "browser_action": {
-    "default_icon": "harvest-jira-icon.png",
+    "default_icon": "images/gr-harvest-tracker-48.png",
     "default_popup": "popupTimer/popup.html"
+  },
+  "icons": {
+    "16": "gr-harvest-tracker-16.png",
+    "48": "gr-harvest-tracker-48.png",
+    "128": "gr-harvest-tracker-128.png"
   },
   "background": {
     "scripts": ["popupTimer/popup.js"]
