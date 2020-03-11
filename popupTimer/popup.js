@@ -16,54 +16,51 @@ chrome.tabs.query({ currentWindow: true, active: true }, function(tab) {
 
 window.onload = function() {
   var item = { id: 1337, name: this.taskName };
-  this.document
-    .getElementsByClassName("harvest-timer")[0]
-    .setAttribute("data-item", JSON.stringify(item));
-  this.document
-    .getElementsByClassName("harvest-timer")[0]
-    .setAttribute("data-permalink", this.tabURL);
-  this.document.getElementsByClassName("harvest-timer")[0].click();
-  this.document
-    .getElementsByClassName("harvest-timer")[0]
-    .setAttribute("top", "10px");
+
+  const harvestTimer = this.document.getElementsByClassName("harvest-timer")[0];
+
+  harvestTimer.setAttribute("data-item", JSON.stringify(item));
+  harvestTimer.setAttribute("data-permalink", this.tabURL);
+  harvestTimer.click();
+  harvestTimer.setAttribute("top", "10px");
 };
 
 var frameDetected = false;
 
 var detectFrame = setInterval(() => {
-  if (document.getElementById("harvest-iframe") && !frameDetected) {
+  const harvestIframe = document.getElementById("harvest-iframe");
+  if (harvestIframe && !frameDetected) {
     frameDetected = true;
 
-    document.getElementById("harvest-iframe").style.top = "10px";
+    harvestIframe.style.top = "10px";
     document.body.clientHeight = "150";
 
-    this.document.getElementsByClassName(
+    const harvestOverlay = this.document.getElementsByClassName(
       "harvest-overlay"
-    )[0].style.background = "white";
+    )[0];
 
-    this.document.getElementsByClassName("harvest-overlay")[0].style.overflow =
-      "hidden";
+    harvestOverlay.style.background = "white";
+    harvestOverlay.style.overflow = "hidden";
 
     var scrollHeight = 300;
     var setHeight = setInterval(() => {
       if (
-        document.getElementById("harvest-iframe").scrollHeight !== 300 &&
-        document.getElementById("harvest-iframe").scrollHeight !== 0 &&
-        document.getElementById("harvest-iframe").scrollHeight == scrollHeight
+        harvestIframe.scrollHeight !== 300 &&
+        harvestIframe.scrollHeight !== 0 &&
+        harvestIframe.scrollHeight == scrollHeight
       ) {
-        document.body.style.height =
-          document.getElementById("harvest-iframe").scrollHeight + "px";
-        if (document.getElementById("harvest-iframe").scrollHeight !== 267) {
+        document.body.style.height = harvestIframe.scrollHeight + "px";
+        if (harvestIframe.scrollHeight !== 267) {
           clearInterval(setHeight);
         }
         document.body.style.width = "500px";
       } else {
-        scrollHeight = document.getElementById("harvest-iframe").scrollHeight;
+        scrollHeight = harvestIframe.scrollHeight;
       }
     }, 100);
   }
 
-  if (document.getElementById("harvest-iframe") == null && frameDetected) {
+  if (harvestIframe == null && frameDetected) {
     window.close();
     clearInterval(detectFrame);
   }

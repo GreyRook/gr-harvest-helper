@@ -68,7 +68,7 @@ if (!GR_time_tracking_harvest_executed_once) {
       GRlog("gitlab detected");
       return gitlabAddTimeTracking();
     } else {
-      return "your task";
+      return "";
     }
   }
 }
