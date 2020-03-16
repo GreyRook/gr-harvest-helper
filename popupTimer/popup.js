@@ -5,24 +5,37 @@ window._harvestPlatformConfig = {
 
 var taskName;
 var tabURL;
+chrome.runtime.onMessage.addListener(function(response) {
+  taskName = response;
+});
 
 chrome.tabs.executeScript({ file: "/ticketName.js" });
 chrome.tabs.query({ currentWindow: true, active: true }, function(tab) {
-  chrome.tabs.executeScript(tab[0].id, { code: "getName()" }, function(result) {
-    taskName = result[0];
-  });
   tabURL = tab[0].url;
 });
 
 window.onload = function() {
-  var item = { id: 1337, name: this.taskName };
-
-  const harvestTimer = this.document.getElementsByClassName("harvest-timer")[0];
-
-  harvestTimer.setAttribute("data-item", JSON.stringify(item));
-  harvestTimer.setAttribute("data-permalink", this.tabURL);
-  harvestTimer.click();
-  harvestTimer.setAttribute("top", "10px");
+  var i = 0;
+  const timeout = 2000; //2sec
+  const intervalTime = 10 
+  var taskNameInterval = setInterval(() => {
+    if (this.taskName !== undefined || i == timeout/intervalTime) {
+      clearInterval(taskNameInterval);
+      var item = { id: 1337, name: this.taskName };
+      this.document
+        .getElementsByClassName("harvest-timer")[0]
+        .setAttribute("data-item", JSON.stringify(item));
+      this.document
+        .getElementsByClassName("harvest-timer")[0]
+        .setAttribute("data-permalink", this.tabURL);
+      this.document.getElementsByClassName("harvest-timer")[0].click();
+      this.document
+        .getElementsByClassName("harvest-timer")[0]
+        .setAttribute("top", "10px");
+    } else {
+      i++;
+    }
+  }, intervalTime);
 };
 
 var frameDetected = false;
