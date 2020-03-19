@@ -81,6 +81,4 @@ if (detectJira()) {
 } else if (detectGitlab()) {
   GRlog("gitlab detected");
   chrome.runtime.sendMessage(gitlabAddTimeTracking());
-} else {
-  chrome.runtime.sendMessage("your task");
 }

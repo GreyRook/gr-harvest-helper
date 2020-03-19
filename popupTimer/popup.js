@@ -17,17 +17,19 @@ chrome.tabs.query({ currentWindow: true, active: true }, function(tab) {
 window.onload = function() {
   var i = 0;
   const timeout = 2000; //2sec
-  const intervalTime = 10 
+  const intervalTime = 10;
   var taskNameInterval = setInterval(() => {
-    if (this.taskName !== undefined || i == timeout/intervalTime) {
+    if (this.taskName !== undefined || i == timeout / intervalTime) {
       clearInterval(taskNameInterval);
       var item = { id: 1337, name: this.taskName };
       this.document
         .getElementsByClassName("harvest-timer")[0]
         .setAttribute("data-item", JSON.stringify(item));
-      this.document
-        .getElementsByClassName("harvest-timer")[0]
-        .setAttribute("data-permalink", this.tabURL);
+      if (this.taskName !== this.undefined) {
+        this.document
+          .getElementsByClassName("harvest-timer")[0]
+          .setAttribute("data-permalink", this.tabURL);
+      }
       this.document.getElementsByClassName("harvest-timer")[0].click();
       this.document
         .getElementsByClassName("harvest-timer")[0]
@@ -56,16 +58,13 @@ var detectFrame = setInterval(() => {
     harvestOverlay.style.overflow = "hidden";
 
     var scrollHeight = 300;
-    var setHeight = setInterval(() => {
+    setInterval(() => {
       if (
         harvestIframe.scrollHeight !== 300 &&
         harvestIframe.scrollHeight !== 0 &&
         harvestIframe.scrollHeight == scrollHeight
       ) {
         document.body.style.height = harvestIframe.scrollHeight + "px";
-        if (harvestIframe.scrollHeight !== 267) {
-          clearInterval(setHeight);
-        }
         document.body.style.width = "500px";
       } else {
         scrollHeight = harvestIframe.scrollHeight;
