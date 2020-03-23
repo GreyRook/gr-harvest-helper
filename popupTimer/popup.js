@@ -15,16 +15,15 @@ chrome.tabs.query({ currentWindow: true, active: true }, function(tab) {
 });
 
 window.onload = function() {
-  var i = 0;
+  let i = 0;
   const timeout = 2000; //2sec
   const intervalTime = 10;
-  var taskNameInterval = setInterval(() => {
+  let taskNameInterval = setInterval(() => {
     if (this.taskName !== undefined || i == timeout / intervalTime) {
       clearInterval(taskNameInterval);
-      var item = { id: 1337, name: this.taskName };
-      this.document
-        .getElementsByClassName("harvest-timer")[0]
-        .setAttribute("data-item", JSON.stringify(item));
+      let item = { id: 1337, name: this.taskName };
+  const harvestTimer = this.document.getElementsByClassName("harvest-timer")[0];
+  harvestTimer.setAttribute("data-item", JSON.stringify(item));
       if (this.taskName !== this.undefined) {
         this.document
           .getElementsByClassName("harvest-timer")[0]
@@ -42,13 +41,12 @@ window.onload = function() {
 
 var frameDetected = false;
 
-var detectFrame = setInterval(() => {
+let detectFrame = setInterval(() => {
   const harvestIframe = document.getElementById("harvest-iframe");
   if (harvestIframe && !frameDetected) {
     frameDetected = true;
 
     harvestIframe.style.top = "10px";
-    document.body.clientHeight = "150";
 
     const harvestOverlay = this.document.getElementsByClassName(
       "harvest-overlay"
@@ -57,12 +55,12 @@ var detectFrame = setInterval(() => {
     harvestOverlay.style.background = "white";
     harvestOverlay.style.overflow = "hidden";
 
-    var scrollHeight = 300;
+    let scrollHeight = 300;
     setInterval(() => {
       if (
         harvestIframe.scrollHeight !== 300 &&
         harvestIframe.scrollHeight !== 0 &&
-        harvestIframe.scrollHeight == scrollHeight
+        harvestIframe.scrollHeight === scrollHeight
       ) {
         document.body.style.height = harvestIframe.scrollHeight + "px";
         document.body.style.width = "500px";
@@ -74,6 +72,5 @@ var detectFrame = setInterval(() => {
 
   if (harvestIframe == null && frameDetected) {
     window.close();
-    clearInterval(detectFrame);
   }
 }, 10);
