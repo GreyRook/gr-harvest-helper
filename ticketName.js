@@ -1,24 +1,30 @@
 function updateModal() {
-  modal(`Welcome to the new version of Harvest Plugin!
-  The way this plugin works has changed a bit:
-  Select an issue in Jira, Zammad or GitLab and then click on the extension button in the upper right corner to start tracking time in Harvest.`);
+  modal(`<p> Welcome to the new version of Harvest Plugin! </p> 
+  <p> The way this plugin works has changed a bit: </p> 
+  <p> Select an issue in Jira, Zammad or GitLab and then click on the extension button in the upper right corner to start tracking time in Harvest.</p>`);
 }
 function installModal() {
-  modal(`Welcome to Harvest Plugin!
-  Select an issue in Jira, Zammad or GitLab and then click on the extension button in the upper right corner to start tracking time in Harvest.`);
+  modal(`<p>Welcome to Harvest Plugin!</p>
+  <p> Select an issue in Jira, Zammad or GitLab and then click on the extension button in the upper right corner to start tracking time in Harvest.</p>`);
 }
 function modal(text) {
   const modal = document.createElement("dialog");
   modal.innerHTML = text;
+  modal.style.zIndex = "201";
   modal.style.maxWidth = "500px";
   modal.style.height = "min-content";
   modal.style.top = "5%";
   modal.style.display = "inline-flex";
   modal.style.flexDirection = "column";
-  modal.style.position = "fixed";
+  modal.style.borderColor = "#f36c00";
+  modal.style.borderRadius = "10px";
+  modal.style.fontSize = "18px";
 
   const modalImg = document.createElement("img");
   modalImg.src = chrome.extension.getURL("images/modalImage.png");
+  modalImg.style.marginTop = "10px";
+  modalImg.style.width = "100%";
+  modalImg.style.height = "auto";
   modal.appendChild(modalImg);
 
   const closeButton = document.createElement("button");
@@ -40,7 +46,6 @@ function modal(text) {
   modal.appendChild(closeButton);
  
   document.body.append(modal);
-  modal.showModal();
 }
 
 function GRlog(text) {
