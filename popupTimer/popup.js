@@ -5,13 +5,23 @@ window._harvestPlatformConfig = {
 
 var taskName;
 var tabURL;
+var tab;
 chrome.runtime.onMessage.addListener(function(response) {
   taskName = response;
 });
 
 chrome.tabs.executeScript({ file: "/ticketName.js" });
 chrome.tabs.query({ currentWindow: true, active: true }, function(tab) {
+  this.tab = tab;
   tabURL = tab[0].url;
+});
+chrome.runtime.onInstalled.addListener(function(details){
+  if(details.reason == "install"){
+    chrome.tabs.executeScript(tab[0].id, { code: "installModal()" });
+  }else if(details.reason == "update"){
+    chrome.tabs.executeScript(tab[0].id, { code: "updateModal()" });
+
+  }
 });
 
 window.onload = function() {
@@ -24,10 +34,8 @@ window.onload = function() {
       let item = { id: 1337, name: this.taskName };
   const harvestTimer = this.document.getElementsByClassName("harvest-timer")[0];
   harvestTimer.setAttribute("data-item", JSON.stringify(item));
-      if (this.taskName !== this.undefined) {
-        this.document
-          .getElementsByClassName("harvest-timer")[0]
-          .setAttribute("data-permalink", this.tabURL);
+      if (this.taskName !== undefined) {
+  harvestTimer.setAttribute("data-permalink", this.tabURL);
       }
       this.document.getElementsByClassName("harvest-timer")[0].click();
       this.document

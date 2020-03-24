@@ -1,3 +1,48 @@
+function updateModal() {
+  modal(`Welcome to the new version of Harvest Plugin!
+  The way this plugin works has changed a bit:
+  Select an issue in Jira, Zammad or GitLab and then click on the extension button in the upper right corner to start tracking time in Harvest.`);
+}
+function installModal() {
+  modal(`Welcome to Harvest Plugin!
+  Select an issue in Jira, Zammad or GitLab and then click on the extension button in the upper right corner to start tracking time in Harvest.`);
+}
+function modal(text) {
+  const modal = document.createElement("dialog");
+  modal.innerHTML = text;
+  modal.style.maxWidth = "500px";
+  modal.style.height = "min-content";
+  modal.style.top = "5%";
+  modal.style.display = "inline-flex";
+  modal.style.flexDirection = "column";
+  modal.style.position = "fixed";
+
+  const modalImg = document.createElement("img");
+  modalImg.src = chrome.extension.getURL("images/modalImage.png");
+  modal.appendChild(modalImg);
+
+  const closeButton = document.createElement("button");
+  closeButton.style.background = "#4fb840";
+  closeButton.style.color = "#fff";
+  closeButton.style.fontWeight = "600";
+  closeButton.style.fontSize = "16px";
+  closeButton.style.lineHeight = "38px";
+  closeButton.style.borderRadius = "4px";
+  closeButton.style.marginTop = "10px";
+  closeButton.style.borderStyle = "solid";
+  closeButton.style.borderColor = "darkgreen";
+  closeButton.style.borderWidth = "thin";
+  closeButton.innerHTML = "OK";
+  closeButton.onclick = () => {
+    modal.style.display = "none";
+    modal.close();
+  };
+  modal.appendChild(closeButton);
+ 
+  document.body.append(modal);
+  modal.showModal();
+}
+
 function GRlog(text) {
   console.log("[GR-Time-Tracker]: " + text);
 }
@@ -39,7 +84,7 @@ async function jiraAddTimeTracking() {
     const urlParams = new URLSearchParams(window.location.search);
     issueId = urlParams.get("selectedIssue");
   }
-  if (!issueId) return "your task";
+  if (!issueId) return "select a task first";
 
   const protocol = window.location.protocol;
   const hostname = window.location.hostname;
