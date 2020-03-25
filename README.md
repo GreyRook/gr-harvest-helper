@@ -1,6 +1,6 @@
 # Harvest Issue Board Plugin
 
-This extension adds a Harvest time tracking button for JIRA, ZAMMAD and GITLAB issues (active sprints page, issue page). No synchronization to the webpage is done, all data stays in Harvest.
+This extension adds a Harvest time tracking button for Jira, Zammad and GitLab issues (active sprints page, issue page). No synchronization to the webpage is done, all data stays in Harvest.
  
  * [Chrome Store](https://chrome.google.com/webstore/detail/jira-harvest-time-trackin/klgljijecjfkdfobihclllkadmoeokgg)
  * [Mozilla Addons](https://addons.mozilla.org/de/firefox/addon/jira-harvest-helper)
