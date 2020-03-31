@@ -10,18 +10,25 @@ chrome.runtime.onMessage.addListener(function(response) {
   taskName = response;
 });
 
-chrome.tabs.executeScript({ file: "/ticketName.js" });
 chrome.tabs.query({ currentWindow: true, active: true }, function(tab) {
+  setTimeout(() => {
+    chrome.tabs.executeScript({ file: "/ticketName.js" });
+  }, 1000);
   this.tab = tab;
   tabURL = tab[0].url;
 });
-chrome.runtime.onInstalled.addListener(function(details){
-  if(details.reason == "install"){
-    chrome.tabs.executeScript(tab[0].id, { code: "installModal()" });
-  }else if(details.reason == "update"){
-    chrome.tabs.executeScript(tab[0].id, { code: "updateModal()" });
 
-  }
+chrome.runtime.onInstalled.addListener(function(details) {
+  chrome.tabs.create({
+    url:"https://git.r0k.de/greyrook/foss/harvest-jira-chrome/blob/master/README.md"
+  });
+  setTimeout(() => {
+    if (details.reason == "install") {
+      chrome.tabs.executeScript({ code: "installModal()" });
+    } else if (details.reason == "update") {
+      chrome.tabs.executeScript({ code: "updateModal()" });
+    }
+  }, 1050);
 });
 
 window.onload = function() {
@@ -32,15 +39,15 @@ window.onload = function() {
     if (this.taskName !== undefined || i == timeout / intervalTime) {
       clearInterval(taskNameInterval);
       let item = { id: 1337, name: this.taskName };
-  const harvestTimer = this.document.getElementsByClassName("harvest-timer")[0];
-  harvestTimer.setAttribute("data-item", JSON.stringify(item));
+      const harvestTimer = this.document.getElementsByClassName(
+        "harvest-timer"
+      )[0];
+      harvestTimer.setAttribute("data-item", JSON.stringify(item));
       if (this.taskName !== undefined) {
-  harvestTimer.setAttribute("data-permalink", this.tabURL);
+        harvestTimer.setAttribute("data-permalink", this.tabURL);
       }
-      this.document.getElementsByClassName("harvest-timer")[0].click();
-      this.document
-        .getElementsByClassName("harvest-timer")[0]
-        .setAttribute("top", "10px");
+      harvestTimer.click();
+      harvestTimer.setAttribute("top", "10px");
     } else {
       i++;
     }

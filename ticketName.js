@@ -10,7 +10,7 @@ function installModal() {
 function modal(text) {
   const modal = document.createElement("dialog");
   modal.innerHTML = text;
-  modal.style.zIndex = "201";
+  modal.style.zIndex = "1500";
   modal.style.maxWidth = "500px";
   modal.style.height = "min-content";
   modal.style.top = "5%";
