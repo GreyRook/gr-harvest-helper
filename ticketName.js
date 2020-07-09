@@ -58,30 +58,24 @@ function detectJira() {
 }
 
 function detectZammad() {
-  try {
-    return (
-      document.getElementsByClassName(
-        "ticket-title-update js-objectTitle"
-      )[0] !== undefined
-    );
-  } catch {
-    return false;
-  }
+  return (
+    document &&
+    document.getElementsByClassName(
+      "ticket-title-update js-objectTitle"
+    ).length > 0
+  );
 }
 
 function detectGitlab() {
-  try {
-    return (
-      document.getElementsByClassName(
-        "detail-page-header-actions js-issuable-actions"
-      )[0] !== undefined
-    );
-  } catch {
-    return false;
-  }
+  return (
+    document &&
+    document.getElementsByClassName(
+      "detail-page-header-actions js-issuable-actions"
+    ).length > 0
+  );
 }
 
-async function jiraAddTimeTracking() {
+async function jiraGetIssueTitle() {
   let issueId;
   try {
     issueId = document.title.match(/\[(.*?)]/)[1];
@@ -89,7 +83,7 @@ async function jiraAddTimeTracking() {
     const urlParams = new URLSearchParams(window.location.search);
     issueId = urlParams.get("selectedIssue");
   }
-  if (!issueId) return "select a task first";
+  if (!issueId) return "";
 
   const protocol = window.location.protocol;
   const hostname = window.location.hostname;
@@ -106,13 +100,13 @@ async function jiraAddTimeTracking() {
   return issueTitle;
 }
 
-function zammadAddTimeTracking() {
+function zammadGetIssueTitle() {
   return document.getElementsByClassName(
     "ticket-title-update js-objectTitle"
   )[0].textContent;
 }
 
-function gitlabAddTimeTracking() {
+function gitlabGetIssueTitle() {
   var taskName = document.getElementsByClassName("title qa-title")[0]
     .textContent;
   var taskId = document.getElementsByClassName("breadcrumbs-sub-title")[0]
@@ -122,13 +116,13 @@ function gitlabAddTimeTracking() {
 
 if (detectJira()) {
   GRlog("jira detected");
-  jiraAddTimeTracking().then(res => {
+  jiraGetIssueTitle().then(res => {
     chrome.runtime.sendMessage(res);
   });
 } else if (detectZammad()) {
   GRlog("zammad detected");
-  chrome.runtime.sendMessage(zammadAddTimeTracking());
+  chrome.runtime.sendMessage(zammadGetIssueTitle());
 } else if (detectGitlab()) {
   GRlog("gitlab detected");
-  chrome.runtime.sendMessage(gitlabAddTimeTracking());
+  chrome.runtime.sendMessage(gitlabGetIssueTitle());
 }

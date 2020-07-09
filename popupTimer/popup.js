@@ -8,6 +8,9 @@ var tabURL;
 var tab;
 chrome.runtime.onMessage.addListener(function(response) {
   taskName = response;
+  if (taskName == "") {
+    taskName = "select a task first";
+  }
 });
 
 chrome.tabs.query({ currentWindow: true, active: true }, function(tab) {
