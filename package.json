@@ -1,6 +1,13 @@
 {
+  "name": "greyrook-harvest-time-tracking-helper",
+  "version": "2.4",
+  "description": "Helps you to link your tracked Time to issues and stories. Supported is Gitlab, Jira and Zammad.",
+  "repository": "http://git.r0k.de/greyrook/foss/harvest-jira-chrome.git",
+  "author": "Grey Rook GmbH",
   "devDependencies": {
     "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-prettier": "^3.1.2"
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint": "^7.4.0",
+    "prettier": "^2.0.5"
   }
 }
