@@ -45,12 +45,14 @@ window.onload = function () {
       clearInterval(taskNameInterval);
       let item = { id: 1337, name: taskName };
       const harvestTimer = document.getElementsByClassName('harvest-timer')[0];
-      harvestTimer.setAttribute('data-item', JSON.stringify(item));
-      if (taskName !== undefined) {
-        harvestTimer.setAttribute('data-permalink', tabURL);
+      if (harvestTimer) {
+        harvestTimer.setAttribute('data-item', JSON.stringify(item));
+        if (taskName !== undefined) {
+          harvestTimer.setAttribute('data-permalink', tabURL);
+        }
+        harvestTimer.click();
+        harvestTimer.setAttribute('top', '10px');
       }
-      harvestTimer.click();
-      harvestTimer.setAttribute('top', '10px');
     } else {
       i++;
     }

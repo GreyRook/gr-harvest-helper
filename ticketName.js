@@ -76,12 +76,16 @@ function detectGitlab() {
 
 async function jiraGetIssueTitle() {
   let issueId;
-  try {
-    issueId = document.title.match(/\[(.*?)]/)[1];
-  } catch (error) {
+  let issueIdMatches = document.title.match(/\[(.*?)]/);
+  
+  if (issueIdMatches) {
+    issueId = issueIdMatches[1];
+  } else {
+    // fallback to get issue id from the url
     const urlParams = new URLSearchParams(window.location.search);
     issueId = urlParams.get('selectedIssue');
   }
+
   if (!issueId) return '';
 
   const protocol = window.location.protocol;
