@@ -27,11 +27,13 @@ chrome.runtime.onInstalled.addListener(function (details) {
       url: 'https://git.r0k.de/greyrook/foss/harvest-jira-chrome/blob/master/README.md',
     },
     function () {
-      if (details.reason === 'install') {
-        chrome.tabs.executeScript({ code: 'installModal()' });
-      } else if (details.reason === 'update') {
-        chrome.tabs.executeScript({ code: 'updateModal()' });
-      }
+      setTimeout(() => {
+        if (details.reason === 'install') {
+          chrome.tabs.executeScript({ code: 'installModal()' });
+        } else if (details.reason === 'update') {
+          chrome.tabs.executeScript({ code: 'updateModal()' });
+        }
+      }, 1050);
     }
   );
 });
