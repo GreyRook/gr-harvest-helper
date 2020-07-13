@@ -6,11 +6,10 @@ window._harvestPlatformConfig = {
 var taskName;
 var tabURL;
 var tab;
+var id;
 chrome.runtime.onMessage.addListener(function (response) {
-  taskName = response;
-  if (taskName == '') {
-    taskName = 'select a task first';
-  }
+  id = response.id ? response.id : 1337;
+  taskName = response.title ? response.title : 'select a task first';
 });
 
 chrome.tabs.query({ currentWindow: true, active: true }, function (activeTab) {
@@ -45,7 +44,7 @@ window.onload = function () {
   let taskNameInterval = setInterval(() => {
     if (taskName !== undefined || i == timeout / intervalTime) {
       clearInterval(taskNameInterval);
-      let item = { id: 1337, name: taskName };
+      let item = { id: id, name: taskName };
       const harvestTimer = document.getElementsByClassName('harvest-timer')[0];
       if (harvestTimer) {
         harvestTimer.setAttribute('data-item', JSON.stringify(item));
@@ -71,7 +70,7 @@ let detectFrame = setInterval(() => {
 
     harvestIframe.style.top = '10px';
 
-    const harvestOverlay = this.document.getElementsByClassName('harvest-overlay')[0];
+    const harvestOverlay = document.getElementsByClassName('harvest-overlay')[0];
 
     harvestOverlay.style.background = 'white';
     harvestOverlay.style.overflow = 'hidden';

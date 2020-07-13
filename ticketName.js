@@ -90,24 +90,34 @@ async function jiraGetIssueTitle() {
 
   const protocol = window.location.protocol;
   const hostname = window.location.hostname;
-  const issueTitle = fetch(protocol + '//' + hostname + '/rest/api/2/issue/' + issueId, {
+  const issueTitle = await fetch(protocol + '//' + hostname + '/rest/api/2/issue/' + issueId, {
     headers: { 'Content-Type': 'application/json' },
   })
     .then((response) => response.json())
     .then((data) => {
       return data.fields.summary;
     });
-  return issueTitle;
+  return {
+    id: issueId, 
+    title: issueTitle
+  };
 }
 
 function zammadGetIssueTitle() {
-  return document.getElementsByClassName('ticket-title-update js-objectTitle')[0].textContent;
+  var title = document.getElementsByClassName('ticket-title-update js-objectTitle')[0].textContent;
+  return {
+    title: title
+  };
 }
 
 function gitlabGetIssueTitle() {
   var taskName = document.getElementsByClassName('title qa-title')[0].textContent;
   var taskId = document.getElementsByClassName('breadcrumbs-sub-title')[0].textContent;
-  return taskName + '(' + taskId + ')';
+  var title = taskName + '(' + taskId + ')'
+  return {
+    id: taskId, 
+    title: title
+  };
 }
 
 if (detectJira()) {
