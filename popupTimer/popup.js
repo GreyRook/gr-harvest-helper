@@ -22,16 +22,18 @@ chrome.tabs.query({ currentWindow: true, active: true }, function (activeTab) {
 });
 
 chrome.runtime.onInstalled.addListener(function (details) {
-  chrome.tabs.create({
-    url: 'https://git.r0k.de/greyrook/foss/harvest-jira-chrome/blob/master/README.md',
-  });
-  setTimeout(() => {
-    if (details.reason == 'install') {
-      chrome.tabs.executeScript({ code: 'installModal()' });
-    } else if (details.reason == 'update') {
-      chrome.tabs.executeScript({ code: 'updateModal()' });
+  chrome.tabs.create(
+    {
+      url: 'https://git.r0k.de/greyrook/foss/harvest-jira-chrome/blob/master/README.md',
+    },
+    function () {
+      if (details.reason === 'install') {
+        chrome.tabs.executeScript({ code: 'installModal()' });
+      } else if (details.reason === 'update') {
+        chrome.tabs.executeScript({ code: 'updateModal()' });
+      }
     }
-  }, 1050);
+  );
 });
 
 window.onload = function () {
