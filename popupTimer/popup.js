@@ -8,7 +8,7 @@ var tabURL;
 var tab;
 var id;
 chrome.runtime.onMessage.addListener(function (response) {
-  id = response.id ? response.id : 1337;
+  id = response.id ? response.id : -1;
   taskName = response.title ? response.title : 'select a task first';
 });
 
@@ -42,7 +42,7 @@ window.onload = function () {
   const timeout = 2000; //2sec
   const intervalTime = 10;
   let taskNameInterval = setInterval(() => {
-    if (taskName !== undefined || i == timeout / intervalTime) {
+    if (taskName !== undefined || i === timeout / intervalTime) {
       clearInterval(taskNameInterval);
       let item = { id: id, name: taskName };
       const harvestTimer = document.getElementsByClassName('harvest-timer')[0];
@@ -65,7 +65,6 @@ var frameDetected = false;
 let detectFrame = setInterval(() => {
   const harvestIframe = document.getElementById('harvest-iframe');
   if (harvestIframe && !frameDetected) {
-    clearInterval(detectFrame);
     frameDetected = true;
 
     harvestIframe.style.top = '10px';
@@ -92,5 +91,6 @@ let detectFrame = setInterval(() => {
 
   if (harvestIframe == null && frameDetected) {
     window.close();
+    clearInterval(detectFrame);
   }
 }, 10);

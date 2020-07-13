@@ -58,7 +58,7 @@ function GRlog(text) {
 
 function detectJira() {
   const appName = document.querySelector('[name=application-name]');
-  return appName && appName.content == 'JIRA';
+  return appName && appName.content === 'JIRA';
 }
 
 function detectZammad() {
