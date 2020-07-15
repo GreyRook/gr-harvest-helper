@@ -12,4 +12,4 @@ The [official harvest-jira integration](https://www.getharvest.com/apps-and-inte
 Select the ticket, then click on the extension icon in the upper right corner.
 
 # Screenshot
-![Example](./images/image1.png)
+![Example](./images/modalImage.png)
