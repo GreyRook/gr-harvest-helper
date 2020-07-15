@@ -23,7 +23,7 @@ chrome.tabs.query({ currentWindow: true, active: true }, function (activeTab) {
 chrome.runtime.onInstalled.addListener(function (details) {
   chrome.tabs.create(
     {
-      url: 'https://git.r0k.de/greyrook/foss/harvest-jira-chrome/blob/master/README.md',
+      url: 'https://github.com/GreyRook/harvest-jira-chrome/blob/master/README.md',
     },
     function () {
       setTimeout(() => {
