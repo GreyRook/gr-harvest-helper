@@ -9,6 +9,7 @@ function installModal() {
   modal(`<p>Welcome to Harvest Plugin!</p>
   <p> Select an issue in Jira, Zammad or GitLab and then click on the extension button in the upper right corner to start tracking time in Harvest.</p>`);
 }
+
 /* eslint-enable no-unused-vars */
 
 function modal(text) {
@@ -77,7 +78,7 @@ function detectGitlab() {
 async function jiraGetIssueTitle() {
   let issueId;
   let issueIdMatches = document.title.match(/\[(.*?)]/);
-  
+
   if (issueIdMatches) {
     issueId = issueIdMatches[1];
   } else {
@@ -98,25 +99,25 @@ async function jiraGetIssueTitle() {
       return data.fields.summary;
     });
   return {
-    id: issueId, 
-    title: issueTitle
+    id: issueId,
+    title: issueTitle,
   };
 }
 
 function zammadGetIssueTitle() {
   var title = document.getElementsByClassName('ticket-title-update js-objectTitle')[0].textContent;
   return {
-    title: title
+    title: title,
   };
 }
 
 function gitlabGetIssueTitle() {
   var taskName = document.getElementsByClassName('title qa-title')[0].textContent;
   var taskId = document.getElementsByClassName('breadcrumbs-sub-title')[0].textContent;
-  var title = taskName + '(' + taskId + ')'
+  var title = taskName + '(' + taskId + ')';
   return {
-    id: taskId, 
-    title: title
+    id: taskId,
+    title: title,
   };
 }
 
