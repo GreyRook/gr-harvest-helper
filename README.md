@@ -9,4 +9,4 @@ This extension adds a Harvest time tracking button for Jira, Zammad and GitLab i
 Select the ticket, then click on the extension icon in the upper right corner. A popup will open where you can specify project and task and set the desired starting time (which defaults to now). A permanent link to the selected issue will be added to the Harvest item automatically.
 
 # Screenshot
-![Example](./images/modalImage.png)
+![Example](./docs/images/modalImage.png)
