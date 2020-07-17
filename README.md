@@ -6,7 +6,7 @@ This extension adds a Harvest time tracking button for Jira, Zammad and GitLab i
  * [Mozilla Addons](https://addons.mozilla.org/de/firefox/addon/jira-harvest-helper)
 
 # How
-Select the ticket, then click on the extension icon in the upper right corner. A popup will open where you can specify project and task and set the desired starting time (which defaults to now). A permanent link to the selected issue will be added to the harvest item automatically.
+Select the ticket, then click on the extension icon in the upper right corner. A popup will open where you can specify project and task and set the desired starting time (which defaults to now). A permanent link to the selected issue will be added to the Harvest item automatically.
 
 # Screenshot
 ![Example](./images/modalImage.png)
