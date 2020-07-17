@@ -10,5 +10,9 @@ Select the ticket, then click on the extension icon in the upper right corner. A
 
 Earlier versions of this plugin displayed a time tracking button on Jira — this got removed. [Details](docs/on-page-tracker.md).
 
+# Why this project was started
+
+The official [harvest-jira](https://www.getharvest.com/apps-and-integrations/jira) integration is done via a Jira plugin — which might not be possible or desirable in some cases (for example you don't have an admin account on your client's Jira instance).
+
 # Screenshot
 ![Example](./docs/images/modalImage.png)
