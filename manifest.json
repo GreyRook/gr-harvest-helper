@@ -14,7 +14,7 @@
     "128": "images/gr-harvest-tracker-128.png"
   },
   "web_accessible_resources": [
-   "images/modalImage.png"
+   "docs/images/modalImage.png"
   ],
   "background": {
     "scripts": ["popupTimer/popup.js"]

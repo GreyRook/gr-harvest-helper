@@ -26,7 +26,7 @@ function modal(text) {
   modal.style.fontSize = '18px';
 
   const modalImg = document.createElement('img');
-  modalImg.src = chrome.extension.getURL('images/modalImage.png');
+  modalImg.src = chrome.extension.getURL('docs/images/modalImage.png');
   modalImg.style.marginTop = '10px';
   modalImg.style.width = '100%';
   modalImg.style.height = 'auto';
