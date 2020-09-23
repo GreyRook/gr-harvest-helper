@@ -16,3 +16,10 @@ The official [harvest-jira](https://www.getharvest.com/apps-and-integrations/jir
 
 # Screenshot
 ![Example](./docs/images/modalImage.png)
+
+# Install the development version
+- Clone this repo (`git clone git@github.com:GreyRook/gr-harvest-helper.git`)
+- Go to Chrome's extensions page (`chrome://extensions/`)
+- Disable the Chrome Store version of this extension (if installed)
+- Enable developer mode via the toggle in the top right
+- Click on "Load unpacked" (top left button) and choose the folder of the cloned repo
