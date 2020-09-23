@@ -18,7 +18,9 @@ The official [harvest-jira](https://www.getharvest.com/apps-and-integrations/jir
 ![Example](./docs/images/modalImage.png)
 
 # Install the development version
-- Clone this repo (`git clone git@github.com:GreyRook/gr-harvest-helper.git`)
+- Get the code:
+  - Either clone this repo (`git clone git@github.com:GreyRook/gr-harvest-helper.git`)
+  - Or download as a zip and unzip it (`https://github.com/GreyRook/gr-harvest-helper/archive/master.zip`)
 - Go to Chrome's extensions page (`chrome://extensions/`)
 - Disable the Chrome Store version of this extension (if installed)
 - Enable developer mode via the toggle in the top right
