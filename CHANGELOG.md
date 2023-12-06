@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Remove unnecessary permission `tabs` from manifest
 
+### Fixed
+
+- Fix time tracking on GitLab issues
+
 ## [3.0.0] - 2020-07-17
 
 ### Added
