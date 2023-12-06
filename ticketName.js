@@ -68,10 +68,10 @@ function detectZammad() {
   );
 }
 
-function detectGitlab() {
+function detectGitLab() {
   return (
-    document &&
-    document.getElementsByClassName('detail-page-header-actions js-issuable-actions').length > 0
+    document.querySelector('meta[property=og\\:site_name]')?.content === 'GitLab' &&
+    document.querySelector('[data-testid=issue-title]')?.textContent
   );
 }
 
@@ -112,9 +112,9 @@ function zammadGetIssueTitle() {
 }
 
 function gitlabGetIssueTitle() {
-  var taskName = document.getElementsByClassName('title qa-title')[0].textContent;
-  var taskId = document.getElementsByClassName('breadcrumbs-sub-title')[0].textContent;
-  var title = taskName + '(' + taskId + ')';
+  var taskName = document.querySelector('[data-testid=issue-title]').textContent;
+  var taskId = document.querySelector('[data-testid="breadcrumb-current-link"] a')?.textContent;
+  var title = taskName + ' (' + taskId + ')';
   return {
     id: taskId,
     title: title,
