@@ -19,6 +19,6 @@
   "background": {
     "scripts": ["popupTimer/popup.js"]
   },
-  "permissions": ["activeTab", "<all_urls>", "tabs"],
+  "permissions": ["activeTab", "<all_urls>"],
   "content_security_policy": "script-src 'self' https://platform.harvestapp.com/assets/platform.js; object-src 'self'"
 }
