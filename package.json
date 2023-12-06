@@ -6,7 +6,7 @@
   "author": "Grey Rook GmbH",
   "scripts": {
     "lint": "eslint . --fix",
-    "format": "prettier --write .prettierrc.js ."
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "eslint-config-prettier": "^6.10.0",
