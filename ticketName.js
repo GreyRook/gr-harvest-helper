@@ -110,7 +110,8 @@ async function jiraGetIssueTitle(issueId) {
 }
 
 function zammadGetIssue() {
-  let title = document.getElementsByClassName('ticket-title-update js-objectTitle')[0].textContent;
+  let title =
+    document.getElementsByClassName('ticket-title-update js-objectTitle')?.[0]?.textContent ?? '';
   return {
     title: title,
   };
