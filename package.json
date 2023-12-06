@@ -5,7 +5,8 @@
   "repository": "http://git.r0k.de/greyrook/foss/harvest-jira-chrome.git",
   "author": "Grey Rook GmbH",
   "scripts": {
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "format": "prettier --write .prettierrc.js ."
   },
   "devDependencies": {
     "eslint-config-prettier": "^6.10.0",

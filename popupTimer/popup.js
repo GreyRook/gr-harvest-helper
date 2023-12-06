@@ -28,9 +28,13 @@ chrome.runtime.onInstalled.addListener(function (details) {
     function () {
       setTimeout(() => {
         if (details.reason === 'install') {
-          chrome.tabs.executeScript({ code: 'installModal()' });
+          chrome.tabs.executeScript({
+            code: 'installModal()',
+          });
         } else if (details.reason === 'update') {
-          chrome.tabs.executeScript({ code: 'updateModal()' });
+          chrome.tabs.executeScript({
+            code: 'updateModal()',
+          });
         }
       }, 1050);
     }
