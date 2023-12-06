@@ -3,10 +3,11 @@ window._harvestPlatformConfig = {
   skipStyling: true,
 };
 
-var taskName;
-var tabURL;
-var tab;
-var id;
+let taskName;
+let tabURL;
+let tab;
+let id;
+
 chrome.runtime.onMessage.addListener(function (response) {
   id = response.id ? response.id : -1;
   taskName = response.title ? response.title : 'select a task first';
@@ -64,7 +65,7 @@ window.onload = function () {
   }, intervalTime);
 };
 
-var frameDetected = false;
+let frameDetected = false;
 
 let detectFrame = setInterval(() => {
   const harvestIframe = document.getElementById('harvest-iframe');
