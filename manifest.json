@@ -1,22 +1,25 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Grey Rook Harvest Time Tracking Helper",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "description": "Helps you to link your tracked time to issues and stories.",
   "author": "Grey Rook GmbH",
-  "browser_action": {
-    "default_icon": "images/gr-harvest-tracker-48.png",
-    "default_popup": "popupTimer/popup.html"
-  },
   "icons": {
     "16": "images/gr-harvest-tracker-16.png",
     "48": "images/gr-harvest-tracker-48.png",
     "128": "images/gr-harvest-tracker-128.png"
   },
-  "web_accessible_resources": ["docs/images/modalImage.png"],
-  "background": {
-    "scripts": ["popupTimer/popup.js"]
+  "action": {
+    "default_popup": "popupTimer/popup.html"
   },
-  "permissions": ["activeTab", "<all_urls>"],
-  "content_security_policy": "script-src 'self' https://platform.harvestapp.com/assets/platform.js; object-src 'self'"
+  "web_accessible_resources": [
+    {
+      "resources": ["docs/images/modalImage.png"],
+      "matches": ["https://github.com/*"]
+    }
+  ],
+  "permissions": ["activeTab", "scripting"],
+  "background": {
+    "service_worker": "serviceWorker.js"
+  }
 }

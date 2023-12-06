@@ -15,31 +15,10 @@ chrome.runtime.onMessage.addListener(function (response) {
 
 chrome.tabs.query({ currentWindow: true, active: true }, function (activeTab) {
   setTimeout(() => {
-    chrome.tabs.executeScript({ file: '/ticketName.js' });
+    chrome.scripting.executeScript({ target: { tabId: tab[0].id }, files: ['/ticketName.js'] });
   }, 1000);
   tab = activeTab;
   tabURL = tab[0].url;
-});
-
-chrome.runtime.onInstalled.addListener(function (details) {
-  chrome.tabs.create(
-    {
-      url: 'https://github.com/GreyRook/harvest-jira-chrome/blob/master/README.md',
-    },
-    function () {
-      setTimeout(() => {
-        if (details.reason === 'install') {
-          chrome.tabs.executeScript({
-            code: 'installModal()',
-          });
-        } else if (details.reason === 'update') {
-          chrome.tabs.executeScript({
-            code: 'updateModal()',
-          });
-        }
-      }, 1050);
-    }
-  );
 });
 
 window.onload = function () {
