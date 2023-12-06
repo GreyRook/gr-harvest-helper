@@ -73,7 +73,15 @@ function detectGitLab() {
   );
 }
 
-async function jiraGetIssueTitle() {
+async function jiraGetIssue() {
+  const issueId = jiraGetIssueId();
+  return {
+    id: issueId,
+    title: await jiraGetIssueTitle(issueId),
+  };
+}
+
+function jiraGetIssueId() {
   let issueId;
   let issueIdMatches = document.title.match(/\[(.*?)]/);
 
@@ -85,31 +93,30 @@ async function jiraGetIssueTitle() {
     issueId = urlParams.get('selectedIssue');
   }
 
-  if (!issueId) return '';
+  return issueId ?? '';
+}
 
+async function jiraGetIssueTitle(issueId) {
   const protocol = window.location.protocol;
   const hostname = window.location.hostname;
-  const issueTitle = await fetch(protocol + '//' + hostname + '/rest/api/2/issue/' + issueId, {
+
+  return await fetch(protocol + '//' + hostname + '/rest/api/2/issue/' + issueId, {
     headers: { 'Content-Type': 'application/json' },
   })
     .then((response) => response.json())
     .then((data) => {
       return data.fields.summary;
     });
-  return {
-    id: issueId,
-    title: issueTitle,
-  };
 }
 
-function zammadGetIssueTitle() {
+function zammadGetIssue() {
   let title = document.getElementsByClassName('ticket-title-update js-objectTitle')[0].textContent;
   return {
     title: title,
   };
 }
 
-function gitlabGetIssueTitle() {
+function gitlabGetIssue() {
   let taskName = document.querySelector('[data-testid=issue-title]').textContent;
   let taskId = document.querySelector('[data-testid="breadcrumb-current-link"] a')?.textContent;
   let title = taskName + ' (' + taskId + ')';
@@ -121,13 +128,13 @@ function gitlabGetIssueTitle() {
 
 if (detectJira()) {
   GRLog('jira detected');
-  jiraGetIssueTitle().then((res) => {
+  jiraGetIssue().then((res) => {
     chrome.runtime.sendMessage(res);
   });
 } else if (detectZammad()) {
   GRLog('zammad detected');
-  chrome.runtime.sendMessage(zammadGetIssueTitle());
+  chrome.runtime.sendMessage(zammadGetIssue());
 } else if (detectGitLab()) {
   GRLog('gitlab detected');
-  chrome.runtime.sendMessage(gitlabGetIssueTitle());
+  chrome.runtime.sendMessage(gitlabGetIssue());
 }
