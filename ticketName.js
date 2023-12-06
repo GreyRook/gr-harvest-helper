@@ -1,11 +1,11 @@
-/* eslint-disable no-unused-vars */
-
+/* eslint-disable-next-line no-unused-vars */
 function updateModal() {
   modal(`<p>Welcome to the new version of the Harvest plugin!</p> 
   <p>The way this plugin works has changed a bit:</p> 
   <p>Select an issue in Jira, Zammad or GitLab and then click on the extension button in the upper right corner to start tracking time in Harvest.</p>`);
 }
 
+/* eslint-disable-next-line no-unused-vars  */
 function installModal() {
   modal(`<p>Welcome to the Harvest plugin!</p>
   <p>Select an issue in Jira, Zammad or GitLab and then click on the extension button in the upper right corner to start tracking time in Harvest.</p>`);
