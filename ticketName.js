@@ -1,16 +1,15 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable-next-line no-unused-vars */
 function updateModal() {
-  modal(`<p> Welcome to the new version of Harvest Plugin! </p> 
-  <p> The way this plugin works has changed a bit: </p> 
-  <p> Select an issue in Jira, Zammad or GitLab and then click on the extension button in the upper right corner to start tracking time in Harvest.</p>`);
+  modal(`<p>Welcome to the new version of the Harvest plugin!</p> 
+  <p>The way this plugin works has changed a bit:</p> 
+  <p>Select an issue in Jira, Zammad or GitLab and then click on the extension button in the upper right corner to start tracking time in Harvest.</p>`);
 }
 
+/* eslint-disable-next-line no-unused-vars  */
 function installModal() {
-  modal(`<p>Welcome to Harvest Plugin!</p>
-  <p> Select an issue in Jira, Zammad or GitLab and then click on the extension button in the upper right corner to start tracking time in Harvest.</p>`);
+  modal(`<p>Welcome to the Harvest plugin!</p>
+  <p>Select an issue in Jira, Zammad or GitLab and then click on the extension button in the upper right corner to start tracking time in Harvest.</p>`);
 }
-
-/* eslint-enable no-unused-vars */
 
 function modal(text) {
   const modal = document.createElement('dialog');
@@ -53,13 +52,12 @@ function modal(text) {
   document.body.append(modal);
 }
 
-function GRlog(text) {
+function GRLog(text) {
   console.log('[GR-Time-Tracker]: ' + text);
 }
 
 function detectJira() {
-  const appName = document.querySelector('[name=application-name]');
-  return appName && appName.content === 'JIRA';
+  return document.querySelector('[name=application-name]')?.content === 'JIRA';
 }
 
 function detectZammad() {
@@ -68,14 +66,22 @@ function detectZammad() {
   );
 }
 
-function detectGitlab() {
+function detectGitLab() {
   return (
-    document &&
-    document.getElementsByClassName('detail-page-header-actions js-issuable-actions').length > 0
+    document.querySelector('meta[property=og\\:site_name]')?.content === 'GitLab' &&
+    document.querySelector('[data-testid=issue-title]')?.textContent
   );
 }
 
-async function jiraGetIssueTitle() {
+async function jiraGetIssue() {
+  const issueId = jiraGetIssueId();
+  return {
+    id: issueId,
+    title: await jiraGetIssueTitle(issueId),
+  };
+}
+
+function jiraGetIssueId() {
   let issueId;
   let issueIdMatches = document.title.match(/\[(.*?)]/);
 
@@ -87,34 +93,34 @@ async function jiraGetIssueTitle() {
     issueId = urlParams.get('selectedIssue');
   }
 
-  if (!issueId) return '';
+  return issueId ?? '';
+}
 
+async function jiraGetIssueTitle(issueId) {
   const protocol = window.location.protocol;
   const hostname = window.location.hostname;
-  const issueTitle = await fetch(protocol + '//' + hostname + '/rest/api/2/issue/' + issueId, {
+
+  return await fetch(protocol + '//' + hostname + '/rest/api/2/issue/' + issueId, {
     headers: { 'Content-Type': 'application/json' },
   })
     .then((response) => response.json())
     .then((data) => {
       return data.fields.summary;
     });
-  return {
-    id: issueId,
-    title: issueTitle,
-  };
 }
 
-function zammadGetIssueTitle() {
-  var title = document.getElementsByClassName('ticket-title-update js-objectTitle')[0].textContent;
+function zammadGetIssue() {
+  let title =
+    document.getElementsByClassName('ticket-title-update js-objectTitle')?.[0]?.textContent ?? '';
   return {
     title: title,
   };
 }
 
-function gitlabGetIssueTitle() {
-  var taskName = document.getElementsByClassName('title qa-title')[0].textContent;
-  var taskId = document.getElementsByClassName('breadcrumbs-sub-title')[0].textContent;
-  var title = taskName + '(' + taskId + ')';
+function gitlabGetIssue() {
+  let taskName = document.querySelector('[data-testid=issue-title]').textContent;
+  let taskId = document.querySelector('[data-testid="breadcrumb-current-link"] a')?.textContent;
+  let title = taskName + ' (' + taskId + ')';
   return {
     id: taskId,
     title: title,
@@ -122,14 +128,14 @@ function gitlabGetIssueTitle() {
 }
 
 if (detectJira()) {
-  GRlog('jira detected');
-  jiraGetIssueTitle().then((res) => {
+  GRLog('jira detected');
+  jiraGetIssue().then((res) => {
     chrome.runtime.sendMessage(res);
   });
 } else if (detectZammad()) {
-  GRlog('zammad detected');
-  chrome.runtime.sendMessage(zammadGetIssueTitle());
-} else if (detectGitlab()) {
-  GRlog('gitlab detected');
-  chrome.runtime.sendMessage(gitlabGetIssueTitle());
+  GRLog('zammad detected');
+  chrome.runtime.sendMessage(zammadGetIssue());
+} else if (detectGitLab()) {
+  GRLog('gitlab detected');
+  chrome.runtime.sendMessage(gitlabGetIssue());
 }

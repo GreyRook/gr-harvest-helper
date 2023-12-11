@@ -3,10 +3,11 @@ window._harvestPlatformConfig = {
   skipStyling: true,
 };
 
-var taskName;
-var tabURL;
-var tab;
-var id;
+let taskName;
+let tabURL;
+let tab;
+let id;
+
 chrome.runtime.onMessage.addListener(function (response) {
   id = response.id ? response.id : -1;
   taskName = response.title ? response.title : 'select a task first';
@@ -28,9 +29,13 @@ chrome.runtime.onInstalled.addListener(function (details) {
     function () {
       setTimeout(() => {
         if (details.reason === 'install') {
-          chrome.tabs.executeScript({ code: 'installModal()' });
+          chrome.tabs.executeScript({
+            code: 'installModal()',
+          });
         } else if (details.reason === 'update') {
-          chrome.tabs.executeScript({ code: 'updateModal()' });
+          chrome.tabs.executeScript({
+            code: 'updateModal()',
+          });
         }
       }, 1050);
     }
@@ -60,7 +65,7 @@ window.onload = function () {
   }, intervalTime);
 };
 
-var frameDetected = false;
+let frameDetected = false;
 
 let detectFrame = setInterval(() => {
   const harvestIframe = document.getElementById('harvest-iframe');
