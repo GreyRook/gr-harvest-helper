@@ -12,12 +12,6 @@
   "action": {
     "default_popup": "popupTimer/popup.html"
   },
-  "web_accessible_resources": [
-    {
-      "resources": ["docs/images/modalImage.png"],
-      "matches": ["https://github.com/*"]
-    }
-  ],
   "permissions": ["activeTab", "scripting"],
   "background": {
     "service_worker": "serviceWorker.js"
