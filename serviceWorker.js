@@ -1,5 +1,2 @@
-chrome.runtime.onInstalled.addListener(function () {
-  chrome.tabs.create({
-    url: 'https://github.com/GreyRook/harvest-jira-chrome/blob/master/README.md',
-  });
-});
+// Use browser API for cross-browser compatibility
+const browserAPI = typeof browser !== 'undefined' ? browser : chrome;

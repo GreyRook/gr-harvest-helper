@@ -21,10 +21,24 @@ function detectGitLab() {
 
 async function jiraGetIssue() {
   const issueId = jiraGetIssueId();
-  return {
-    id: issueId,
-    title: await jiraGetIssueTitle(issueId),
-  };
+  
+  if (!issueId) {
+    GRLog('Could not extract Jira issue ID - popup will open without autofill');
+    return null;
+  }
+  
+  try {
+    const issue = await jiraGetIssueTitle(issueId);
+    const ticketUrl = `${window.location.protocol}//${window.location.hostname}/browse/${issueId}`;
+    return {
+      id: issueId,
+      title: issue.fields.summary,
+      url: ticketUrl,
+    };
+  } catch (error) {
+    GRLog('Error fetching Jira issue: ' + error.message);
+    return null;
+  }
 }
 
 function jiraGetIssueId() {
@@ -51,7 +65,8 @@ async function jiraGetIssueTitle(issueId) {
   })
     .then((response) => response.json())
     .then((data) => {
-      return data.fields.summary;
+      GRLog(data);
+      return data;
     });
 }
 
@@ -60,6 +75,7 @@ function zammadGetIssue() {
     document.getElementsByClassName('ticket-title-update js-objectTitle')?.[0]?.textContent ?? '';
   return {
     title: title,
+    url: window.location.href
   };
 }
 
@@ -70,18 +86,24 @@ function gitlabGetIssue() {
   return {
     id: taskId,
     title: title,
+    url: window.location.href,
   };
 }
 
 if (detectJira()) {
   GRLog('jira detected');
   jiraGetIssue().then((res) => {
-    chrome.runtime.sendMessage(res);
+    if (res) {
+      browser.runtime.sendMessage(res);
+    }
   });
 } else if (detectZammad()) {
   GRLog('zammad detected');
-  chrome.runtime.sendMessage(zammadGetIssue());
+  browser.runtime.sendMessage(zammadGetIssue());
 } else if (detectGitLab()) {
   GRLog('gitlab detected');
-  chrome.runtime.sendMessage(gitlabGetIssue());
+  browser.runtime.sendMessage(gitlabGetIssue());
+} else {
+  GRLog('no supported platform detected - popup will open without autofill');
+  // Don't send any message, allowing the popup to open normally
 }
